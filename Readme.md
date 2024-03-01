@@ -31,7 +31,7 @@ pause
 ## Create App Reg and Service Principal
 
 This utilises custom action azure:create-appreg-sp.
-It is responsible for creating the Contributor application registration and service principal, and assigning the appropriate roles to the created service principal. Below is a breakdown of its components:
+It is responsible for creating an application registration and service principal, and assigning the appropriate roles to the created service principal. Below is a breakdown of its components:
 
 #### Input Parameters
 
