@@ -9,4 +9,9 @@ const success = {
   type: 'boolean',
 };
 
-export { secret, success};
+const endDate = {
+  title: 'End Date',
+  type: 'string',
+};
+
+export { secret, success, endDate};

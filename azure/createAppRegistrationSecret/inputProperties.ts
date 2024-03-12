@@ -23,9 +23,16 @@ const clientSecret = {
   type: 'string',
 };
 
+const validityDays = {
+  title: 'Days Secret is Valid',
+  description: 'Amount of time secret is valid',
+  type: 'number',
+};
+
 export {
   appObjId,
   tenantId,
   clientId,
   clientSecret,
+  validityDays,
 };

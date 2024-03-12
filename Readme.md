@@ -95,11 +95,13 @@ This action creates a secret for the given service principal
 * `tenantId`: Azure Active Directory (AAD) tenant ID.
 * `clientId`: Client ID used for authentication.
 * `clientSecret`: Client secret used for authentication.
+* `validityDays`: How long the new secret is valid for 
 
 #### Outputs:
 
 * `secret`: The secret generated for the Azure application.
 * `success`: Indicates whether the action was successful (true or false).
+* `endDate`: The date the secret expires
 
 #### Libraries
 
@@ -335,3 +337,66 @@ There have been intermittent issues seen where when trying to utilise services w
 
 This simple function takes an input and start a timer which counts down the required amount.
 
+## Create KeyVault
+
+This utilises cutom action 'azure:create-keyvault'
+This custom action automates the process of creating a KeyVault 
+
+#### Input Parameters
+
+* `keyVaultName`: Name of the Keyvault to be created
+* `clientId`: Client ID used for authentication.
+* `clientSecret`: Client secret used for authentication.
+* `subscriptionId`: Azure subscription ID.
+* `resourceGroupName`: Name of the resource group to be created.
+* `location`: Location where the resource group will be provisioned.
+* `tenantId`: Azure Active Directory (AAD) tenant ID.
+* `appId`: Client ID to be granted access to Keyvault
+
+#### Libraries Used:
+
+* Azure Identity Library:
+
+    - *ClientSecretCredential*: Used for authenticating with Azure services using a client ID and client secret.
+
+* Azure Arm-Keyvault Library
+
+    - *KeyVaultManagementClient*: Used to create a keyvault
+    
+    - *VaultCreateOrUpdateParameters*: Used to set Parameters on keyvaults
+
+#### Outputs:
+
+* `success`: Indicates whether the action was successful (true or false).
+* `keyVaultId`: The id of the newly created Keyvault
+* `keyVaultUri`: The uri of the newly created Keyvault
+
+
+## Create Keyvault Secret
+
+This utilises cutom action 'azure:create-keyvault-secret'
+This custom action automates the process of creating a KeyVault Secret
+
+#### Input Parameters
+
+* `keyVaultUri`: The URI of the Keyvault to be used
+* `clientId`: Client ID used for authentication.
+* `clientSecret`: Client secret used for authentication.
+* `tenantId`: Azure Active Directory (AAD) tenant ID.
+* `secretName`: The name of the secret to be created
+* `secretValue`: The value of the secret 
+
+#### Libraries Used:
+
+* Azure Identity Library:
+
+    - *ClientSecretCredential*: Used for authenticating with Azure services using a client ID and client secret.
+
+* Azure keyvault-secrets Library
+
+    - *SecretClient*: Used to create keyvault secret
+
+#### Outputs:
+
+* `success`: Indicates whether the action was successful (true or false).
+* `secretUri`: The uri of the newly created Secret
