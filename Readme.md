@@ -24,8 +24,13 @@ grantAccessToStorageAccount
 `'azure:grant-access-to-storage-account'`
 
 pause
-'custom:pause'
+`'custom:pause'`
 
+createKeyVault
+`'azure:create-keyvault'`
+
+createKeyVaultSecret
+`'azure:create-keyvault-secret'`
 
 
 ## Create App Reg and Service Principal
