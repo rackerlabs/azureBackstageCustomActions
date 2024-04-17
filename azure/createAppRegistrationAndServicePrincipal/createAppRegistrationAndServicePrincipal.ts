@@ -121,6 +121,8 @@ export function createAppRegistrationAndServicePrincipalAction() {
 
         // Log success output
         ctx.output(outputProps.success.title, 'true');
+
+        //return { appId, servicePrincipalId,appObjId };
         ctx.output('appId', appId);
         ctx.output('servicePrincipalId', servicePrincipalId);
         ctx.output('appObjId', appObjId);
@@ -132,7 +134,7 @@ export function createAppRegistrationAndServicePrincipalAction() {
           }
         }
 
-        //return { appId, servicePrincipalId };
+        
       } catch (error: any) {
         ctx.logger.error(`[ERROR] - ${error.message}`);
         throw new Error(`Failed to create Azure app registration and service principal: ${error.message}`);
