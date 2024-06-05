@@ -405,3 +405,103 @@ This custom action automates the process of creating a KeyVault Secret
 
 * `success`: Indicates whether the action was successful (true or false).
 * `secretUri`: The uri of the newly created Secret
+
+## Github Backstage Custom Actions
+
+A number of actions to interact with Github repos using a PAT .
+
+createGitHubEnvironment
+`id: 'github:create-environment'`
+
+createGithubRepoSecret
+id`github:add-secrets`
+
+## Create GitHub Environment
+
+This function utilizes the `github:create-environment` custom action. It is responsible for creating or updating a GitHub environment within a specified repository, assigning reviewers, and optionally adding encrypted secrets to the environment. Below is a breakdown of its components:
+
+#### Input Parameters
+
+- `token`: Personal access token for authenticating with the GitHub API.
+- `repository`: Name of the repository where the environment will be created or updated.
+- `environmentName`: Name of the environment to create or update.
+- `owner`: Owner of the repository (user or organization).
+- `reviewerUsernames`: (Optional) Array of GitHub usernames to be assigned as reviewers for the environment.
+- `reviewerTeamname`: (Optional) Name of the GitHub team to be assigned as reviewers for the environment.
+- `secrets`: (Optional) Object containing key-value pairs of secrets to be added to the environment.
+
+#### Output
+
+- `success`: Indicates whether the action was successful (true or false).
+
+#### Libraries
+
+This code uses several libraries and SDKs provided by GitHub and additional utilities for encryption. Here's a breakdown of the libraries used:
+
+* #### Octokit:
+
+    - *Octokit* : This is part of the Octokit library provided by GitHub. It is used for making requests to the GitHub API and interacting with GitHub resources such as repositories, environments, teams, and users.
+
+* #### Sodium:
+
+    - *libsodium-wrappers* : This library is used for encrypting secrets before they are stored in the GitHub environment. It ensures that secrets are securely handled and stored.
+
+#### Functionality
+
+The `createGitHubEnvironmentAction` function is responsible for defining the action.
+It first calls the `createGitHubEnvironment` function to create or update the GitHub environment.
+If reviewer usernames or a team name are provided, it fetches their IDs and assigns them as reviewers.
+If secrets are provided, it encrypts them and adds them to the environment.
+Finally, it outputs the results and handles errors if any occur.
+
+#### Logic
+
+The `createGitHubEnvironment` function is responsible for the main logic of creating or updating the GitHub environment.
+It retrieves the repository details using the provided token and repository name.
+It fetches user IDs for the specified reviewer usernames and the team ID for the specified reviewer team name.
+It combines the reviewers and assigns them to the environment.
+It creates or updates the environment using the GitHub API.
+If secrets are provided, it encrypts each secret using the public key of the environment and stores the encrypted secrets.
+It logs the success or error messages and sets the appropriate output.
+
+
+## Add Secrets to GitHub Repository
+
+This function utilizes the `github:add-secrets` custom action. It is responsible for adding encrypted secrets to a specified GitHub repository. Below is a breakdown of its components:
+
+#### Input Parameters
+
+- `token`: Personal access token for authenticating with the GitHub API.
+- `repository`: Name of the repository where the secrets will be added.
+- `owner`: Owner of the repository (user or organization).
+- `secrets`: Object containing key-value pairs of secrets to be added to the repository.
+
+#### Output
+
+- `success`: Indicates whether the action was successful (true or false).
+
+#### Libraries
+
+This code uses several libraries and SDKs provided by GitHub and additional utilities for encryption. Here's a breakdown of the libraries used:
+
+* #### Octokit:
+
+    - *Octokit* : This is part of the Octokit library provided by GitHub. It is used for making requests to the GitHub API and interacting with GitHub resources such as repositories and secrets.
+
+* #### Sodium:
+
+    - *libsodium-wrappers* : This library is used for encrypting secrets before they are stored in the GitHub repository. It ensures that secrets are securely handled and stored.
+
+#### Functionality
+
+The `addSecretsToGitHubRepositoryAction` function is responsible for defining the action.
+It first calls the `addSecretsToGitHubRepository` function to add the encrypted secrets to the specified GitHub repository.
+If secrets are provided, it encrypts them using the repository's public key and stores the encrypted secrets in the repository.
+Finally, it outputs the results and handles errors if any occur.
+
+#### Secret Addition Logic
+
+The `addSecretsToGitHubRepository` function is responsible for the main logic of adding encrypted secrets to the GitHub repository.
+It retrieves the repository's public key using the provided token, repository name, and owner.
+It encrypts each secret using the public key of the repository and stores the encrypted secrets in the repository using the GitHub API.
+It logs the success or error messages and sets the appropriate output.
