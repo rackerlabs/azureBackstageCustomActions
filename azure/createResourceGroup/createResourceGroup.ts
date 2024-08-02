@@ -73,7 +73,7 @@ export function createResourceGroupAction() {
         ctx.output('id', id);
       } catch (error: any) {
         ctx.logger.error(`[ERROR] - ${error.message}`);
-        throw new Error(`Failed to create Federated Credential: ${error.message}`);
+        throw new Error(`Failed to create Resource Group: ${error.message}`);
       }
     },
   });
